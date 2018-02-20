@@ -17,7 +17,7 @@ function onError() {
 }
 
 function sendMessage(event) {
-	if (client) {
+	if (client && $.trim($('#message').val()) != '') {
 		var t = new Date();
 		var times = t.toUTCString().substring(5, t.toUTCString().length - 4);
 		var chatMessage = {
