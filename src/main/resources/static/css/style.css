@@ -1,0 +1,67 @@
+body {
+	text-align:center;
+    font-family: sans-serif;
+}
+
+div.chat{
+    display: inline-block;
+}
+
+div.chat div.display{
+	height: 15em;
+	width: 30em;
+	border: solid 1px;
+    margin: 0px 0px 10px 0px;
+    overflow-y: auto;
+    text-align: left;
+    padding: 5px;
+}
+
+div.chat input{
+    font-size: 1em;
+    width: 27.5em;
+    height: 22px;
+    padding-right: 1em;
+    padding-left: 5px;
+    margin-right: 0px;
+    border: none;
+}
+
+div.chat button{
+    font-size: 1em;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 20px;
+    background-color: aliceblue;
+}
+
+div.chat p.sender{
+    font-size: 0.8em;
+    font-weight: bold;
+    margin: 0px 0px 5px 0px;
+}
+
+div.chat p.time{
+    font-size: 0.5em;
+    color: blue;
+    font-weight: bold;
+    margin: 0px 0px 5px 0px;
+}
+
+div.chat p.textBody{
+    font-size: 0.8em;
+    margin: 0px 5px 5px 5px;
+    word-wrap: break-word;
+}
+
+div.chat div.message{
+    border-radius: 5px;
+    display: inline-block;
+    width: auto;
+    max-width: 60%;
+    min-width: 20%;
+    padding: 5px;
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+}
