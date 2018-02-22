@@ -14,7 +14,8 @@ import aaaronny.dev.testchat.model.User;
 @RestController
 public class LoginController {
 
-	private static final String URI_LOGIN = "https://testfirebase-4864d.firebaseio.com/USERS/";
+	private static final String URI_LOGIN = "http://aaaronny.altervista.org/testchat_api/login.php";
+	
 	private static final Logger logger = Logger.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces="application/json", consumes="application/json")
@@ -23,8 +24,9 @@ public class LoginController {
 		ResponseEntity<String> response = null;
 
 		RestTemplate restTemplate = new RestTemplate();
-		String res = restTemplate.getForObject(URI_LOGIN + user.getUsername() + "/" + user.getPassword() + ".json", String.class);
-		logger.info("POST to FireBase >>> " + URI_LOGIN + user.getUsername() + "/" + user.getPassword() + ".json");
+		String pathLogin = "?username=" + user.getUsername() + "&password=" + user.getPassword();
+		String res = restTemplate.getForObject(URI_LOGIN + pathLogin, String.class);
+		logger.info("GET to aaaronnyAPI >>> " + URI_LOGIN + pathLogin);
 		logger.info("RESULT >>> " + res);
 		if (!res.equals("null")) {
 			response = new ResponseEntity<String>("OK", HttpStatus.OK);
