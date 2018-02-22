@@ -9,7 +9,13 @@
 <script src="js/chat.js"></script>
 </head>
 <body>
-	<div class="chat">
+	<div id="loginBox">
+	<h2>Login Chat</h2>
+	<label>Username: <input type="text" id="user" /></label><br />
+	<label>Password: <input type="password" id="pass" /></label><br />
+	<button onclick="login()">LOGIN</button>
+	</div>
+	<div id="chatBox" class="chat" style="display:none;">
 		<div id="display" class="display"></div>
 		<div class="console">
 			 <div style="border: solid 1px; display: inline-block;">

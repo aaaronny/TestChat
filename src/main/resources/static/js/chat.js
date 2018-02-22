@@ -1,8 +1,35 @@
 var client = null;
 var username = null;
 
+function login() {
+
+	$.ajax({
+		type : "POST",
+		url : "/login/" + $('#user').val(),
+		dataType : 'json',
+		contentType : 'application/json',
+		data : $('#pass').val(),
+		statusCode : {
+			200 : function(res) {
+				
+				username = $('#user').val();
+				
+				$('#loginBox').css("display", "none");
+				$('#chatBox').css("display", "inline-block");
+
+				connect();
+
+				$(document).keypress(function(e) {
+					if (e.which == 13)
+						sendMessage();
+				});
+			}
+		}
+	});
+
+}
+
 function connect() {
-	username = window.prompt('INSERISCI USERNAME', 'TEST');
 	var socket = new SockJS('/tsch');
 	client = Stomp.over(socket);
 	client.connect({}, onConnected, onError);
@@ -47,18 +74,13 @@ function onMessageReceived(payload) {
 	$('#display').append(html);
 
 	var scr = $('#display')[0].scrollHeight;
-	$('#display').animate({ scrollTop : scr }, 1000);
-    $( "#message" ).focus()
+	$('#display').animate({
+		scrollTop : scr
+	}, 1000);
+	$("#message").focus()
 
 }
 
 $(function() {
-	
-	connect();
-    
-    $(document).keypress(function(e) {
-        if(e.which == 13)
-            sendMessage();
-    });
-    
+
 });
