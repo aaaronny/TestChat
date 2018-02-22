@@ -1,29 +1,31 @@
 package aaaronny.dev.testchat.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import aaaronny.dev.testchat.model.User;
+
 @RestController
 public class LoginController {
 
 	private static final String URI_LOGIN = "https://testfirebase-4864d.firebaseio.com/USERS/";
+	private static final Logger logger = Logger.getLogger(LoginController.class);
 
-	@RequestMapping(value = "/login/{username}", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> login(@PathVariable String username,
-			@RequestBody String password) {
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces="application/json", consumes="application/json")
+	public ResponseEntity<String> login(@RequestBody User user) {
 
 		ResponseEntity<String> response = null;
 
 		RestTemplate restTemplate = new RestTemplate();
-		String res = restTemplate.getForObject(URI_LOGIN + username + "/" + password + ".json", String.class);
-		System.out.println("prova GET >>> " + URI_LOGIN + username + "/" + password + ".json");
-		System.out.println(res);
+		String res = restTemplate.getForObject(URI_LOGIN + user.getUsername() + "/" + user.getPassword() + ".json", String.class);
+		logger.info("POST to FireBase >>> " + URI_LOGIN + user.getUsername() + "/" + user.getPassword() + ".json");
+		logger.info("RESULT >>> " + res);
 		if (!res.equals("null")) {
 			response = new ResponseEntity<String>("OK", HttpStatus.OK);
 		} else {

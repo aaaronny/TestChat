@@ -2,13 +2,15 @@ var client = null;
 var username = null;
 
 function login() {
+	
+	var utente = { username: $('#user').val(), password: $('#pass').val() };
 
 	$.ajax({
 		type : "POST",
-		url : "/login/" + $('#user').val(),
+		url : '/login',
 		dataType : 'json',
 		contentType : 'application/json',
-		data : $('#pass').val(),
+		data : JSON.stringify(utente),
 		statusCode : {
 			200 : function(res) {
 				
