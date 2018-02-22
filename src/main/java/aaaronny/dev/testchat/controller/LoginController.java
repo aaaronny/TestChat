@@ -1,4 +1,4 @@
-package aaaronny.dev.testchat.restController;
+package aaaronny.dev.testchat.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

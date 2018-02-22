@@ -3,7 +3,7 @@ package aaaronny.dev.testchat;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages={"aaaronny.dev.testchat.restController"})
+@SpringBootApplication
 public class Application {
 
 	public static void main(String[] args) {

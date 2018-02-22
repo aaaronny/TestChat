@@ -1,10 +1,12 @@
 body {
 	text-align:center;
     font-family: sans-serif;
+    margin: 10px;
 }
 
 div.chat{
     display: inline-block;
+    margin: 10px;
 }
 
 div.chat div.display{
@@ -19,21 +21,12 @@ div.chat div.display{
 
 div.chat input{
     font-size: 1em;
-    width: 27.5em;
+    width: 30em;
     height: 22px;
     padding-right: 1em;
     padding-left: 5px;
     margin-right: 0px;
     border: none;
-}
-
-div.chat button{
-    font-size: 1em;
-    font-weight: bold;
-    width: 24px;
-    height: 24px;
-    border-radius: 20px;
-    background-color: aliceblue;
 }
 
 div.chat p.sender{
