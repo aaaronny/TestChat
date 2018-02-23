@@ -5,7 +5,7 @@ public class ChatMessage {
     private String sender;
     private String date;
 
-    public String getContent() {
+	public String getContent() {
         return content;
     }
 

@@ -32,6 +32,7 @@ function login() {
 }
 
 function connect() {
+	loadOldMsg();
 	var socket = new SockJS('/tsch');
 	client = Stomp.over(socket);
 	client.connect({}, onConnected, onError);
@@ -62,6 +63,11 @@ function sendMessage(event) {
 
 function onMessageReceived(payload) {
 	var mss = JSON.parse(payload.body);
+	echoMsg(mss);
+	scrollEnd();
+}
+
+function echoMsg(mss){
 	var isMy = '';
 	var color = 'aliceblue';
 	if (mss.sender == username) {
@@ -74,14 +80,32 @@ function onMessageReceived(payload) {
 			+ mss.content + '</p>';
 	html += '<p class="time">' + mss.date + '</p></div></div>';
 	$('#display').append(html);
+}
 
+function scrollEnd(){
 	var scr = $('#display')[0].scrollHeight;
 	$('#display').animate({
 		scrollTop : scr
 	}, 1000);
 	$("#message").focus()
-
 }
+
+function loadOldMsg(){
+	$.ajax({
+		type : "GET",
+		url : '/oldMsg',
+		contentType : 'application/json',
+		statusCode : {
+			200 : function(res) {
+					var mexs = JSON.parse(res);
+					for (i=0; i<mexs.length; ++i)
+						echoMsg(mexs[i]);
+					scrollEnd();
+				}
+		}
+	});
+}
+
 
 $(function() {
 
