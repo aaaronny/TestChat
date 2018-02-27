@@ -1,0 +1,32 @@
+package aaaronny.dev.testchat.controller;
+
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/loginFb")
+public class HomeController {
+
+	private Facebook facebook;
+	private ConnectionRepository connectionRepository;
+
+	public HomeController(Facebook facebook, ConnectionRepository connectionRepository) {
+		this.facebook = facebook;
+		this.connectionRepository = connectionRepository;
+	}
+
+	@GetMapping
+	public String helloFacebook(ModelMap model) {
+		if (connectionRepository.findPrimaryConnection(Facebook.class) == null) {
+			return "redirect:/connect/facebook";
+		}
+
+		model.addAttribute("account", facebook.userOperations().getUserProfile());
+		return "chat";
+	}
+
+}
