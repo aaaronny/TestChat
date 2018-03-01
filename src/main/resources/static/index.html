@@ -2,12 +2,15 @@
 <html>
 <head>
 <title>Test Chat</title>
+<meta name="google-signin-client_id" content="253310887928-6pejcgd932e0a16rtv89plipd6g98tar.apps.googleusercontent.com">
+
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.min.js"></script>
 <script src="js/jquery-latest.js"></script>
 <script src="js/chat.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
 
@@ -21,20 +24,24 @@
 					<div class="input-group">
 						<span class="input-group-addon"> <i
 							class="glyphicon glyphicon-user" style="width: auto"></i>
-						</span> <input id="user" type="text" class="form-control" placeholder="Username" required="" />
+						</span> <input id="user" type="text" class="form-control"
+							placeholder="Username" required="" />
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon">
-						<i class="glyphicon glyphicon-lock" style="width: auto"></i>
-						</span> <input id="pass" type="password" class="form-control" placeholder="Password" required="" />
+						<span class="input-group-addon"> <i
+							class="glyphicon glyphicon-lock" style="width: auto"></i>
+						</span> <input id="pass" type="password" class="form-control"
+							placeholder="Password" required="" />
 					</div>
 				</div>
 				<button onclick="login()" id="btnLogin" class="btn btn-default"
 					style="width: 100%">
 					LOGIN<i class="glyphicon glyphicon-log-in"></i>
 				</button>
+
+				<div class="g-signin2" data-onsuccess="onSignInGoogle" style="margin-top:10px;"></div>
 			</div>
 		</div>
 	</div>

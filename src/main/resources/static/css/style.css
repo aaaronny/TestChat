@@ -58,3 +58,7 @@ div.chat div.message{
     margin-top: 2.5px;
     margin-bottom: 2.5px;
 }
+
+div.g-signin2 > div{
+	width: 100% !important;
+}

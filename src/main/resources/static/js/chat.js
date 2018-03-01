@@ -1,6 +1,13 @@
 var client = null;
 var username = null;
 
+function onSignInGoogle(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  username = profile.getName();
+	  setOnChatDiv();
+	  connect();
+	}
+
 function login() {
 	
 	var utente = { username: $('#user').val(), password: $('#pass').val() };
@@ -16,19 +23,23 @@ function login() {
 				
 				username = $('#user').val();
 				
-				$('#loginBox').css("display", "none");
-				$('#chatBox').css("display", "inline-block");
+				setOnChatDiv();
 
 				connect();
-
-				$(document).keypress(function(e) {
-					if (e.which == 13)
-						sendMessage();
-				});
 			}
 		}
 	});
 
+}
+
+function setOnChatDiv(){
+	$('#loginBox').css("display", "none");
+	$('#chatBox').css("display", "inline-block");
+
+	$(document).keypress(function(e) {
+		if (e.which == 13)
+			sendMessage();
+	});
 }
 
 function connect() {

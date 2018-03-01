@@ -13,7 +13,7 @@ public class MessageRestController {
 	
 	private static final String URI_MESSAGES = "http://aaaronny.altervista.org/testchat_api/messages.php";
 
-	private static final Logger logger = Logger.getLogger(LoginController.class);
+	private static final Logger logger = Logger.getLogger(MessageRestController.class);
 
 	@RequestMapping(value = "/oldMsg", method = RequestMethod.GET)
 	public ResponseEntity<String> getOldMsg() {
