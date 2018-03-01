@@ -55,6 +55,9 @@ function onConnected() {
 
 function onError() {
 	alert('Errore di connessione!');
+	if (confirm('Vuoi provare a riconnetterti?')) {
+		connect();
+	}
 }
 
 function sendMessage(event) {
