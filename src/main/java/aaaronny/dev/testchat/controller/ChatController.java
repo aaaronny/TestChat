@@ -1,6 +1,7 @@
 package aaaronny.dev.testchat.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -28,6 +29,12 @@ public class ChatController {
 		} else if (chatMessage.getTypeMessage().equals("LOGIN")) {
 			logger.info("LOGIN USER >>> " + chatMessage.getSender());
 		}
+		return chatMessage;
+	}
+
+	@MessageMapping("/chat/{user}")
+	@SendTo("/topic/{user}")
+	public ChatMessage sendPvtMessage(@DestinationVariable String user, @Payload ChatMessage chatMessage) {
 		return chatMessage;
 	}
 

@@ -48,6 +48,7 @@ function connect() {
 
 function onConnected() {
 	client.subscribe('/topic/public', onMessageReceived);
+	client.subscribe('/topic/' + username, onPvtMessageReceived);
 	sendLogMessage();
 }
 
@@ -86,10 +87,31 @@ function sendMessage(event) {
 	}
 }
 
+function sendPvtMessage(event) {
+	if (client && $('#message').val() != '') {
+		var t = new Date();
+		var times = t.toUTCString().substring(5, t.toUTCString().length - 4);
+		var chatMessage = {
+			sender : username,
+			content : $('#message').val(),
+			date : times,
+			typeMessage: 'CHAT'
+		};
+
+		client.send("/app/chat/" + prompt('A chi?', 'lorenzo') , {}, JSON.stringify(chatMessage));
+		$('#message').val('');
+	}
+}
+
 function onMessageReceived(payload) {
 	var mss = JSON.parse(payload.body);
 	echoMsg(mss);
 	scrollEnd();
+}
+
+function onPvtMessageReceived(payload) {
+	var mss = JSON.parse(payload.body);
+	alert("PRIVATE MESSAGE >>> From: " + mss.sender + ": " + mss.content);
 }
 
 function echoMsg(mss) {
