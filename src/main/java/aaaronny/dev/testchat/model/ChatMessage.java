@@ -4,6 +4,7 @@ public class ChatMessage {
     private String content;
     private String sender;
     private String date;
+    private String typeMessage = "CHAT";
 
 	public String getContent() {
         return content;
@@ -28,4 +29,13 @@ public class ChatMessage {
 	public void setDate(String date) {
 		this.date = date;
 	}
+
+	public String getTypeMessage() {
+		return typeMessage;
+	}
+
+	public void setTypeMessage(String typeMessage) {
+		this.typeMessage = typeMessage;
+	}
+	
 }

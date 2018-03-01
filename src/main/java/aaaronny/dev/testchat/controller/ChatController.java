@@ -18,15 +18,17 @@ public class ChatController {
 
     @MessageMapping("/chat")
     @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-    	
-    	String requestRest = "?sender=" + chatMessage.getSender() + "&content=" + chatMessage.getContent() + "&date=" + chatMessage.getDate();
-    	
-    	RestTemplate restTemplate = new RestTemplate();
-		String res = restTemplate.getForObject(URI_MESSAGES + requestRest, String.class);
-		logger.info("POST to aaaronnyAPI for NEW MESSAGES >>> " + URI_MESSAGES);
-		logger.info("RESULT >>> " + res);
-        return chatMessage;
-    }
+	public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+		if (chatMessage.getTypeMessage().equals("CHAT")) {
+			String requestRest = "?sender=" + chatMessage.getSender() + "&content=" + chatMessage.getContent() + "&date=" + chatMessage.getDate();
+			RestTemplate restTemplate = new RestTemplate();
+			String res = restTemplate.getForObject(URI_MESSAGES + requestRest, String.class);
+			logger.info("POST to aaaronnyAPI for NEW MESSAGES >>> " + URI_MESSAGES);
+			logger.info("RESULT >>> " + res);
+		} else if (chatMessage.getTypeMessage().equals("LOGIN")) {
+			logger.info("LOGIN USER >>> " + chatMessage.getSender());
+		}
+		return chatMessage;
+	}
 
 }

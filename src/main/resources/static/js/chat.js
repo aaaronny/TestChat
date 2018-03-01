@@ -20,11 +20,8 @@ function login() {
 		data : JSON.stringify(utente),
 		statusCode : {
 			200 : function(res) {
-				
-				username = $('#user').val();
-				
+				username = $('#user').val();				
 				setOnChatDiv();
-
 				connect();
 			}
 		}
@@ -51,6 +48,7 @@ function connect() {
 
 function onConnected() {
 	client.subscribe('/topic/public', onMessageReceived);
+	sendLogMessage();
 }
 
 function onError() {
@@ -60,6 +58,18 @@ function onError() {
 	}
 }
 
+function sendLogMessage(){
+	var t = new Date();
+	var times = t.toUTCString().substring(5, t.toUTCString().length - 4);
+	var chatMessage = {
+		sender : username,
+		content : $('#message').val(),
+		date : times,
+		typeMessage : 'LOGIN'
+	};
+	client.send("/app/chat", {}, JSON.stringify(chatMessage));
+}
+
 function sendMessage(event) {
 	if (client && $('#message').val() != '') {
 		var t = new Date();
@@ -67,7 +77,8 @@ function sendMessage(event) {
 		var chatMessage = {
 			sender : username,
 			content : $('#message').val(),
-			date : times
+			date : times,
+			typeMessage: 'CHAT'
 		};
 
 		client.send("/app/chat", {}, JSON.stringify(chatMessage));
@@ -81,18 +92,25 @@ function onMessageReceived(payload) {
 	scrollEnd();
 }
 
-function echoMsg(mss){
-	var isMy = '';
-	var color = 'aliceblue';
-	if (mss.sender == username) {
-		isMy = ' style="text-align: right;"';
-		color = 'greenyellow';
+function echoMsg(mss) {
+	var html = '';
+	if (mss.typeMessage == 'LOGIN') {
+		html += '<div style="text-align: center;" ><div style="background-color: '
+				+ color + ';" class="loginMessage">';
+		html += '<p class="sender">' + mss.sender + ' entra in chat! - ' + mss.date + '</p></div></div>';
+	} else {
+		var isMy = '';
+		var color = 'aliceblue';
+		if (mss.sender == username) {
+			isMy = ' style="text-align: right;"';
+			color = 'greenyellow';
+		}
+		html += '<div' + isMy + '><div style="background-color: ' + color
+				+ ';" class="message">';
+		html += '<p class="sender">' + mss.sender + '</p><p class="textBody">'
+				+ mss.content + '</p>';
+		html += '<p class="time">' + mss.date + '</p></div></div>';
 	}
-	var html = '<div' + isMy + '><div style="background-color: ' + color
-			+ ';" class="message">';
-	html += '<p class="sender">' + mss.sender + '</p><p class="textBody">'
-			+ mss.content + '</p>';
-	html += '<p class="time">' + mss.date + '</p></div></div>';
 	$('#display').append(html);
 }
 
@@ -106,6 +124,7 @@ function scrollEnd(){
 
 function loadOldMsg(){
 	$.ajax({
+		async : false,
 		type : "GET",
 		url : '/oldMsg',
 		contentType : 'application/json',
