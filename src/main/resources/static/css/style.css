@@ -87,7 +87,7 @@ div.chat p.userCard{
 	cursor: pointer;
 	list-style: disc;
 	color: green;
-	line-height: 32px;
+	margin: 4px;
 }
 
 div.chat p.userCard img{
