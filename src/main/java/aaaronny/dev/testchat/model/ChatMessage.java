@@ -1,8 +1,11 @@
 package aaaronny.dev.testchat.model;
 
+import java.util.Date;
+
 public class ChatMessage {
     private String content;
     private String sender;
+    private String displayName = null;
     private String date;
     private String typeMessage = "CHAT";
 
@@ -27,7 +30,8 @@ public class ChatMessage {
 	}
 
 	public void setDate(String date) {
-		this.date = date;
+		date = new Date().toGMTString();
+    	this.date = date.substring(0, date.length()-4);
 	}
 
 	public String getTypeMessage() {
@@ -36,6 +40,14 @@ public class ChatMessage {
 
 	public void setTypeMessage(String typeMessage) {
 		this.typeMessage = typeMessage;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	
 }

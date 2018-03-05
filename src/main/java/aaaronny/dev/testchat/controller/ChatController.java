@@ -5,6 +5,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,17 +21,28 @@ public class ChatController {
     @MessageMapping("/chat")
     @SendTo("/topic/public")
 	public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-		if (chatMessage.getTypeMessage().equals("CHAT")) {
-			String requestRest = "?sender=" + chatMessage.getSender() + "&content=" + chatMessage.getContent() + "&date=" + chatMessage.getDate();
-			RestTemplate restTemplate = new RestTemplate();
-			String res = restTemplate.getForObject(URI_MESSAGES + requestRest, String.class);
-			logger.info("POST to aaaronnyAPI for NEW MESSAGES >>> " + URI_MESSAGES);
-			logger.info("RESULT >>> " + res);
-		} else if (chatMessage.getTypeMessage().equals("LOGIN")) {
-			logger.info("LOGIN USER >>> " + chatMessage.getSender());
-		}
+		if (chatMessage.getDisplayName() == null)
+			chatMessage.setDisplayName(chatMessage.getSender());
+		String requestRest = "?sender=" + chatMessage.getSender() + "&displayName=" + chatMessage.getDisplayName() + "&content=" + chatMessage.getContent() + "&date=" + chatMessage.getDate();
+		RestTemplate restTemplate = new RestTemplate();
+		String res = restTemplate.getForObject(URI_MESSAGES + requestRest, String.class);
+		logger.info("POST to aaaronnyAPI for NEW MESSAGES >>> " + URI_MESSAGES);
+		logger.info("RESULT >>> " + res);
 		return chatMessage;
 	}
+    
+    @MessageMapping("/users")
+    @SendTo("/topic/public")
+    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+		if (chatMessage.getDisplayName() == null)
+			chatMessage.setDisplayName(chatMessage.getSender());
+    	if (chatMessage.getTypeMessage().equals("LOGIN")) {
+            headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+            headerAccessor.getSessionAttributes().put("displayName", chatMessage.getDisplayName());
+			logger.info("LOGIN USER >>> " + chatMessage.getSender() + " - " + chatMessage.getDisplayName());
+		}
+        return chatMessage;
+    }
 
 	@MessageMapping("/chat/{user}")
 	@SendTo("/topic/{user}")

@@ -10,8 +10,20 @@ div.chat{
 }
 
 div.chat div.display{
-	height: 15em;
-	width: 30em;
+	display: inline-block;
+	height: 30em;
+	width: 44.5em;
+	border: solid 1px;
+    margin: 0px 0px 10px 0px;
+    overflow-y: auto;
+    text-align: left;
+    padding: 5px;
+}
+
+div.chat div.usersDisplay{
+	display: inline-block;
+	height: 30em;
+	width: 15em;
 	border: solid 1px;
     margin: 0px 0px 10px 0px;
     overflow-y: auto;
@@ -21,7 +33,7 @@ div.chat div.display{
 
 div.chat input{
     font-size: 1em;
-    width: 30em;
+    width: 60em;
     height: 22px;
     padding-right: 1em;
     padding-left: 5px;
@@ -69,4 +81,10 @@ div.chat div.loginMessage{
 
 div.g-signin2 > div{
 	width: 100% !important;
+}
+
+div.chat li.userCard{
+	cursor: pointer;
+	list-style: disc;
+	color: green;
 }

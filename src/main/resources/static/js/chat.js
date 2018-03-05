@@ -1,9 +1,11 @@
 var client = null;
 var username = null;
+var displayName = null;
 
 function onSignInGoogle(googleUser) {
 	  var profile = googleUser.getBasicProfile();
-	  username = profile.getName();
+	  username = profile.getEmail();
+	  displayName = profile.getName();
 	  setOnChatDiv();
 	  connect();
 	}
@@ -53,33 +55,30 @@ function onConnected() {
 }
 
 function onError() {
-	alert('Errore di connessione!');
-	if (confirm('Vuoi provare a riconnetterti?')) {
+	if (confirm('Errore di connessione, vuoi provare a riconnetterti?')) {
 		connect();
 	}
 }
 
 function sendLogMessage(){
-	var t = new Date();
-	var times = t.toUTCString().substring(5, t.toUTCString().length - 4);
 	var chatMessage = {
 		sender : username,
+		displayName : displayName,
 		content : $('#message').val(),
-		date : times,
-		typeMessage : 'LOGIN'
+		typeMessage : 'LOGIN',
+		date: ''
 	};
-	client.send("/app/chat", {}, JSON.stringify(chatMessage));
+	client.send("/app/users", {}, JSON.stringify(chatMessage));
 }
 
 function sendMessage(event) {
 	if (client && $('#message').val() != '') {
-		var t = new Date();
-		var times = t.toUTCString().substring(5, t.toUTCString().length - 4);
 		var chatMessage = {
 			sender : username,
+			displayName : displayName,
 			content : $('#message').val(),
-			date : times,
-			typeMessage: 'CHAT'
+			typeMessage: 'CHAT',
+			date: ''
 		};
 
 		client.send("/app/chat", {}, JSON.stringify(chatMessage));
@@ -87,20 +86,17 @@ function sendMessage(event) {
 	}
 }
 
-function sendPvtMessage(event) {
-	if (client && $('#message').val() != '') {
-		var t = new Date();
-		var times = t.toUTCString().substring(5, t.toUTCString().length - 4);
-		var chatMessage = {
-			sender : username,
-			content : $('#message').val(),
-			date : times,
-			typeMessage: 'CHAT'
-		};
+function sendPvtMessage(li) {
+	var chatMessage = {
+		sender : username,
+		displayName : displayName,
+		content : prompt('Cosa vuoi dire in privato a ' + li.getAttribute("title") + '?', '...'),
+		typeMessage : 'CHAT',
+		date : ''
+	};
 
-		client.send("/app/chat/" + prompt('A chi?', 'lorenzo') , {}, JSON.stringify(chatMessage));
-		$('#message').val('');
-	}
+	client.send("/app/chat/" + li.getAttribute("title"), {}, JSON
+			.stringify(chatMessage));
 }
 
 function onMessageReceived(payload) {
@@ -116,11 +112,7 @@ function onPvtMessageReceived(payload) {
 
 function echoMsg(mss) {
 	var html = '';
-	if (mss.typeMessage == 'LOGIN') {
-		html += '<div style="text-align: center;" ><div style="background-color: '
-				+ color + ';" class="loginMessage">';
-		html += '<p class="sender">' + mss.sender + ' entra in chat! - ' + mss.date + '</p></div></div>';
-	} else {
+	if ((mss.typeMessage != 'LOGIN') && (mss.typeMessage != 'LOGOUT')) {
 		var isMy = '';
 		var color = 'aliceblue';
 		if (mss.sender == username) {
@@ -129,11 +121,14 @@ function echoMsg(mss) {
 		}
 		html += '<div' + isMy + '><div style="background-color: ' + color
 				+ ';" class="message">';
-		html += '<p class="sender">' + mss.sender + '</p><p class="textBody">'
-				+ mss.content + '</p>';
+		html += '<p class="sender">'
+				+ ((mss.displayName == '') ? mss.sender : mss.displayName)
+				+ '</p><p class="textBody">' + mss.content + '</p>';
 		html += '<p class="time">' + mss.date + '</p></div></div>';
+		$('#display').append(html);
+	} else {
+		usersListManager(mss);
 	}
-	$('#display').append(html);
 }
 
 function scrollEnd(){
@@ -159,6 +154,15 @@ function loadOldMsg(){
 				}
 		}
 	});
+}
+
+function usersListManager(mss){
+	$('#usersList li').each(function() {
+		if($(this).prop('title') == mss.sender)
+			$(this).remove();
+	});
+	if (mss.typeMessage == 'LOGIN')
+		$('#usersList').append('<li class="userCard" title="' + mss.sender + '" onclick="sendPvtMessage(this)">' + mss.displayName + '</li>');
 }
 
 
