@@ -83,8 +83,15 @@ div.g-signin2 > div{
 	width: 100% !important;
 }
 
-div.chat li.userCard{
+div.chat p.userCard{
 	cursor: pointer;
 	list-style: disc;
 	color: green;
+	line-height: 32px;
+}
+
+div.chat p.userCard img{
+	height: 32px;
+	width: 32px;
+	margin-right: 5px;
 }

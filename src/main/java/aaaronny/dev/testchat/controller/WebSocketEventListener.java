@@ -8,12 +8,16 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import aaaronny.dev.testchat.UsersContainer;
 import aaaronny.dev.testchat.model.ChatMessage;
 
 @Component
 public class WebSocketEventListener {
 
     private static final Logger logger = Logger.getLogger(WebSocketEventListener.class);
+	
+    @Autowired
+    private UsersContainer activeUsers;
     
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
@@ -22,13 +26,12 @@ public class WebSocketEventListener {
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
         String username = (String) headerAccessor.getSessionAttributes().get("username");
-        String displayName = (String) headerAccessor.getSessionAttributes().get("displayName");
         if(username != null) {
-			logger.info("LOGOUT USER >>> " + username + " - " + displayName);
+        	activeUsers.removeUserByUsername(username);
+			logger.info("LOGOUT USER >>> " + username);
             ChatMessage chatMessage = new ChatMessage();
             chatMessage.setTypeMessage("LOGOUT");
             chatMessage.setSender(username);
-            chatMessage.setDisplayName(displayName);
             messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }

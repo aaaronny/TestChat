@@ -1,11 +1,13 @@
 var client = null;
 var username = null;
 var displayName = null;
+var profileImg = '';
 
 function onSignInGoogle(googleUser) {
 	  var profile = googleUser.getBasicProfile();
 	  username = profile.getEmail();
 	  displayName = profile.getName();
+	  profileImg = profile.getImageUrl();
 	  setOnChatDiv();
 	  connect();
 	}
@@ -64,7 +66,7 @@ function sendLogMessage(){
 	var chatMessage = {
 		sender : username,
 		displayName : displayName,
-		content : $('#message').val(),
+		content : profileImg,
 		typeMessage : 'LOGIN',
 		date: ''
 	};
@@ -156,13 +158,18 @@ function loadOldMsg(){
 	});
 }
 
-function usersListManager(mss){
-	$('#usersList li').each(function() {
-		if($(this).prop('title') == mss.sender)
-			$(this).remove();
+function usersListManager(){
+	$.ajax({
+		type : "GET",
+		url : '/onlineUsers',
+		contentType : 'application/json',
+		statusCode : {
+			200 : function(mss) {
+					for (i=0; i<mss.length; ++i)
+						$('#usersList').append('<p class="userCard" title="' + mss[i].username + '" onclick="sendPvtMessage(this)"><img class="usersProfileImg" src="' + mss[i].imgUrl + '" />' + mss[i].displayName + '</p>');
+				}
+		}
 	});
-	if (mss.typeMessage == 'LOGIN')
-		$('#usersList').append('<li class="userCard" title="' + mss.sender + '" onclick="sendPvtMessage(this)">' + mss.displayName + '</li>');
 }
 
 
