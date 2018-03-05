@@ -166,8 +166,10 @@ function usersListManager(){
 		statusCode : {
 			200 : function(mss) {
 				$('#usersList').html('');
-					for (i=0; i<mss.length; ++i)
-						$('#usersList').append('<p class="userCard" title="' + mss[i].username + '" onclick="sendPvtMessage(this)"><img class="usersProfileImg" src="' + mss[i].imgUrl + '" />' + mss[i].displayName + '</p>');
+					for (i=0; i<mss.length; ++i){
+						var img = (mss[i].imgUrl == '') ? '/img/noimguser.png' : mss[i].imgUrl;
+						$('#usersList').append('<p class="userCard" title="' + mss[i].username + '" onclick="sendPvtMessage(this)"><img class="usersProfileImg" src="' + img + '" />' + mss[i].displayName + '</p>');
+					}
 				}
 		}
 	});
