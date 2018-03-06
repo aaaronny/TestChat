@@ -10,6 +10,7 @@ function onSignInGoogle(googleUser) {
 	  profileImg = profile.getImageUrl();
 	  setOnChatDiv();
 	  connect();
+	  ReactDOM.render(new ChatFull({ client: client, username: username }), document.getElementById('react'));
 	}
 
 function login() {
@@ -47,7 +48,7 @@ function connect() {
 	loadOldMsg();
 	var socket = new SockJS('/tsch');
 	client = Stomp.over(socket);
-	client.connect({}, onConnected, onError);
+	//client.connect({}, onConnected, onError);
 }
 
 function onConnected() {
@@ -115,14 +116,11 @@ function onPvtMessageReceived(payload) {
 function echoMsg(mss) {
 	var html = '';
 	if ((mss.typeMessage != 'LOGIN') && (mss.typeMessage != 'LOGOUT')) {
-		var isMy = '';
-		var color = 'aliceblue';
+		var isMy = 'received';
 		if (mss.sender == username) {
-			isMy = ' style="text-align: right;"';
-			color = 'greenyellow';
+			isMy = 'sended';
 		}
-		html += '<div' + isMy + '><div style="background-color: ' + color
-				+ ';" class="message">';
+		html += '<div class="' + isMy + '"><div class="message">';
 		html += '<p class="sender">'
 				+ ((mss.displayName == '') ? mss.sender : mss.displayName)
 				+ '</p><p class="textBody">' + mss.content + '</p>';

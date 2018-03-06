@@ -71,6 +71,22 @@ div.chat div.message{
     margin-bottom: 2.5px;
 }
 
+div.chat div.sended{
+    text-align: right;
+}
+
+div.chat div.sended > div{
+    background-color: greenyellow;
+}
+
+div.chat div.received{
+    text-align: left;
+}
+
+div.chat div.received > div{
+    background-color: aliceblue;
+}
+
 div.chat div.loginMessage{
     display: inline-block;
     width: 90%;
