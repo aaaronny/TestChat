@@ -94,4 +94,5 @@ div.chat p.userCard img{
 	height: 32px;
 	width: 32px;
 	margin-right: 5px;
+	border-radius: 16px;
 }

@@ -168,7 +168,7 @@ function usersListManager(){
 				$('#usersList').html('');
 					for (i=0; i<mss.length; ++i){
 						var img = (mss[i].imgUrl == '') ? '/img/noimguser.png' : mss[i].imgUrl;
-						$('#usersList').append('<p class="userCard" title="' + mss[i].username + '" onclick="sendPvtMessage(this)"><img class="usersProfileImg" src="' + img + '" />' + mss[i].displayName + '</p>');
+						$('#usersList').append('<p class="userCard" title="' + mss[i].username + '" onclick="sendPvtMessage(this)"><img src="' + img + '" />' + mss[i].displayName + '</p>');
 					}
 				}
 		}
