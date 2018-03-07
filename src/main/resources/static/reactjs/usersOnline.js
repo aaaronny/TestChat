@@ -1,15 +1,7 @@
-class ChatDisplay extends React.Component {
+class UsersOnline extends React.Component {
 	
 	constructor(props) {
 		super(props);
-	}
-	
-	componentDidUpdate () {
-		  var el = this.refs.display;
-		  var $jel = $(el);
-			$jel.animate({
-				scrollTop : el.scrollHeight
-			}, 1000);
 	}
 
 	render() {

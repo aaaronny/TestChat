@@ -20,8 +20,11 @@ class ChatFull extends React.Component {
 		console.log('onConnected >>> start');
 		this.onMessagePvtReceived = this.onPvtMessageReceived.bind(this);
 		this.onMessageReceived = this.onMessageReceived.bind(this);
+		this.loadOldMsg = this.loadOldMsg.bind(this);
 		this.props.client.subscribe('/topic/public', this.onMessageReceived);
 		this.props.client.subscribe('/topic/' + this.props.username, onPvtMessageReceived);
+		
+		this.loadOldMsg();
 		
 		var chatMessage = {
 				sender : this.props.username,
@@ -35,13 +38,12 @@ class ChatFull extends React.Component {
 
 	onError() {
 		console.log('onError >>> start');
-		if(!this.state.noFirstAccess){
+		if(this.state.noFirstAccess){
 			if (confirm('Errore di connessione, vuoi provare a riconnetterti?')) {
 				this.connect();
 			}
 		} else {
 			this.setState({ noFirstAccess : true });
-			alert(this.state.noFirstAccess);
 		}
 	}
 
@@ -78,11 +80,37 @@ class ChatFull extends React.Component {
 			this.props.client.send("/app/chat", {}, JSON.stringify(chatMessage));
 		}
 	}
+	
+	loadOldMsg(){
+		this.ajaxLoad = this.ajaxLoad.bind(this);
+		$.ajax({
+			async : false,
+			type : "GET",
+			url : '/oldMsg',
+			contentType : 'application/json',
+			statusCode : {
+				200 : this.ajaxLoad
+			}
+		});
+	}
+	
+	ajaxLoad(res){
+		let mexs = JSON.parse(res);
+		const messages = this.state.messages;
+		for (i=0; i<mexs.length; ++i)
+			messages.push({
+				display: mexs[i].displayName,
+				content: (mexs[i].typeMessage == 'CHAT') ? mexs[i].content : '',
+				date: mexs[i].date,
+				isMy: (this.props.username == mexs[i].sender) ? 'sended' : 'received'
+			})
+		this.setState({ messages });
+	}
 
 	render() {
 		return (
 				<div className="chat">
-				<ChatDisplay messages={this.state.messages} client={client} />
+				<ChatDisplay messages={this.state.messages} />
 				<ChatConsole send={this.sendMessage} />
 				</div>
 				);

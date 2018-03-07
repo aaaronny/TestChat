@@ -7,6 +7,7 @@ class ChatConsole extends React.Component {
 		
 		send(event) {
 	        this.props.send(this.message.value);
+	        this.message.value = '';
 	        event.preventDefault();
 	    }
 
@@ -15,7 +16,7 @@ class ChatConsole extends React.Component {
 					<div className="console">
 					<form onSubmit={this.send}>
 						<div>
-							<input defaultValue="Scrivi..." type="text" ref={(input) => this.message = input} />
+							<input type="text" ref={(input) => this.message = input} />
 						</div>
 					</form>
 					</div>
