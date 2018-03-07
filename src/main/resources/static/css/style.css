@@ -112,3 +112,8 @@ div.chat p.userCard img{
 	margin-right: 5px;
 	border-radius: 16px;
 }
+
+div.chat div.console div{
+	border: solid 1px;
+	display: inline-block;
+}

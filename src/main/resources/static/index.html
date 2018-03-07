@@ -2,20 +2,30 @@
 <html>
 <head>
 <title>Test Chat</title>
+
 <meta name="google-signin-client_id" content="253310887928-6pejcgd932e0a16rtv89plipd6g98tar.apps.googleusercontent.com">
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.min.js"></script>
 <script src="js/jquery-latest.js"></script>
 <script src="js/chat.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
+<!-- 	REACT FRAMEWORK LIBS	 -->
 <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script	src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+<!-- 	REACT COMPONENTS 	-->
+<script type="text/babel" src="reactjs/chatMessage.js"></script>
 <script type="text/babel" src="reactjs/chatDisplay.js"></script>
+<script type="text/babel" src="reactjs/chatConsole.js"></script>
+<script type="text/babel" src="reactjs/chatFull.js"></script>
+<script type="text/babel" src="reactjs/reactEngine.js"></script>
+
 </head>
 <body>
 
@@ -55,7 +65,7 @@
 		<div class="usersDisplay" id="usersList"></div>
 		<div id="display" class="display"></div>
 		<div class="console">
-			<div style="border: solid 1px; display: inline-block;">
+			<div>
 				<input type="text" id="message" />
 			</div>
 		</div>

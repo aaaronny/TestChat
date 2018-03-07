@@ -3,16 +3,6 @@ var username = null;
 var displayName = null;
 var profileImg = '';
 
-function onSignInGoogle(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  username = profile.getEmail();
-	  displayName = profile.getName();
-	  profileImg = profile.getImageUrl();
-	  setOnChatDiv();
-	  connect();
-	  ReactDOM.render(new ChatFull({ client: client, username: username }), document.getElementById('react'));
-	}
-
 function login() {
 	
 	var utente = { username: $('#user').val(), password: $('#pass').val() };
@@ -46,22 +36,21 @@ function setOnChatDiv(){
 
 function connect() {
 	loadOldMsg();
-	var socket = new SockJS('/tsch');
-	client = Stomp.over(socket);
+	client = Stomp.over(new SockJS('/tsch'));
 	//client.connect({}, onConnected, onError);
 }
 
-function onConnected() {
-	client.subscribe('/topic/public', onMessageReceived);
-	client.subscribe('/topic/' + username, onPvtMessageReceived);
-	sendLogMessage();
-}
+//function onConnected() {
+//	client.subscribe('/topic/public', onMessageReceived);
+//	client.subscribe('/topic/' + username, onPvtMessageReceived);
+//	sendLogMessage();
+//}
 
-function onError() {
-	if (confirm('Errore di connessione, vuoi provare a riconnetterti?')) {
-		connect();
-	}
-}
+//function onError() {
+//	if (confirm('Errore di connessione, vuoi provare a riconnetterti?')) {
+//		connect();
+//	}
+//}
 
 function sendLogMessage(){
 	var chatMessage = {
@@ -85,6 +74,7 @@ function sendMessage(event) {
 		};
 
 		client.send("/app/chat", {}, JSON.stringify(chatMessage));
+		client.send("/app/chat/" + username, {}, JSON.stringify(chatMessage));
 		$('#message').val('');
 	}
 }
