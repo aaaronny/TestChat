@@ -6,13 +6,14 @@ class UserMiniCard extends React.Component {
 	}
 	
 	send(event) {
-        this.props.send(prompt('Cosa vuoi dire in privato a ' + this.props.username + '?', '...'), "/app/chat" + this.props.username);
+        this.props.send(prompt('Cosa vuoi dire in privato a ' + this.props.display + '?', '...'), "/app/chat/" + this.props.username);
         event.preventDefault();
     }
 
 	render() {
+		var img = (this.props.img == '') ? '/img/noimguser.png' : this.props.img;
 		return (
-				<p className="userCard" onClick={this.send}><img src={this.props.img} />
+				<p className="userCard" onClick={this.send}><img src={img} />
 				{ this.props.display }
 				</p>
 		);

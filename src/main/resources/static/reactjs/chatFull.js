@@ -7,7 +7,7 @@ class ChatFull extends React.Component {
 		this.onError = this.onError.bind(this);
 		this.onConnected = this.onConnected.bind(this);
 		this.sendMessage = this.sendMessage.bind(this);
-		this.onMessagePvtReceived = this.onPvtMessageReceived.bind(this);
+		this.onPvtMessageReceived = this.onPvtMessageReceived.bind(this);
 		this.onMessageReceived = this.onMessageReceived.bind(this);
 		this.loadOldMsg = this.loadOldMsg.bind(this);
 		this.loadOnlineUsers = this.loadOnlineUsers.bind(this);
@@ -25,8 +25,8 @@ class ChatFull extends React.Component {
 
 	onConnected() {
 		console.log('onConnected >>> start');
+		this.props.client.subscribe('/topic/' + this.props.username, this.onPvtMessageReceived);
 		this.props.client.subscribe('/topic/public', this.onMessageReceived);
-		this.props.client.subscribe('/topic/' + this.props.username, onPvtMessageReceived);
 		
 		this.ajaxLoad('/oldMsg', this.loadOldMsg);
 		
@@ -71,7 +71,7 @@ class ChatFull extends React.Component {
 	
 	onPvtMessageReceived(payload) {
 		const mss = JSON.parse(payload.body);
-		alert("PRIVATE MESSAGE >>> From: " + mss.sender + ": " + mss.content);
+		alert("From: " + mss.displayName + "\n\n" + mss.content);
 	}
 	
 	sendMessage(message, channel) {

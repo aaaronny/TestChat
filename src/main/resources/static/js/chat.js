@@ -100,7 +100,7 @@ function onMessageReceived(payload) {
 
 function onPvtMessageReceived(payload) {
 	var mss = JSON.parse(payload.body);
-	alert("PRIVATE MESSAGE >>> From: " + mss.sender + ": " + mss.content);
+//	alert("PRIVATE MESSAGE >>> From: " + mss.sender + ": " + mss.content);
 }
 
 function echoMsg(mss) {
