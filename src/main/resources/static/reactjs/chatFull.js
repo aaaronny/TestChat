@@ -2,29 +2,33 @@ class ChatFull extends React.Component {
 	
 	constructor(props) {
 		super(props);
+		
+		//	BINDING METHODS
+		this.onError = this.onError.bind(this);
+		this.onConnected = this.onConnected.bind(this);
+		this.sendMessage = this.sendMessage.bind(this);
+		this.onMessagePvtReceived = this.onPvtMessageReceived.bind(this);
+		this.onMessageReceived = this.onMessageReceived.bind(this);
+		this.loadOldMsg = this.loadOldMsg.bind(this);
+		this.loadOnlineUsers = this.loadOnlineUsers.bind(this);
+		
 		console.log('logged user >>> ' + this.props.username);
 		console.log('display name >>> ' + this.props.display);
-		this.state = { messages: [] , noFirstAccess: true};
+		this.state = { messages: [] , users: [], noFirstAccess: true};
 		this.connect();
 	}
 	
 	connect(){
 		console.log('connect >>> try to connect...');
-		this.onError = this.onError.bind(this);
-		this.onConnected = this.onConnected.bind(this);
-		this.sendMessage = this.sendMessage.bind(this);
 		this.props.client.connect({}, this.onConnected, this.onError);		
 	}
 
 	onConnected() {
 		console.log('onConnected >>> start');
-		this.onMessagePvtReceived = this.onPvtMessageReceived.bind(this);
-		this.onMessageReceived = this.onMessageReceived.bind(this);
-		this.loadOldMsg = this.loadOldMsg.bind(this);
 		this.props.client.subscribe('/topic/public', this.onMessageReceived);
 		this.props.client.subscribe('/topic/' + this.props.username, onPvtMessageReceived);
 		
-		this.loadOldMsg();
+		this.ajaxLoad('/oldMsg', this.loadOldMsg);
 		
 		var chatMessage = {
 				sender : this.props.username,
@@ -50,15 +54,19 @@ class ChatFull extends React.Component {
 	onMessageReceived(payload) {
 		console.log('onMessageReceived >>> start');
 		const mss = JSON.parse(payload.body);
-		let mex = {
-				display: mss.displayName,
-				content: (mss.typeMessage == 'LOGIN') ? 'Sono entrato in chat!' : mss.content,
-				date: mss.date,
-				isMy: (this.props.username == mss.sender) ? 'sended' : 'received'
+			if (mss.typeMessage == 'CHAT'){
+				let mex = {
+						display: mss.displayName,
+						content: mss.content,
+						date: mss.date,
+						isMy: (this.props.username == mss.sender) ? 'sended' : 'received'
+				}
+				const messages = this.state.messages;
+				messages.push(mex);
+				this.setState({ messages });
+		} else {
+			this.ajaxLoad('/onlineUsers', this.loadOnlineUsers);
 		}
-		const messages = this.state.messages;
-		messages.push(mex);
-		this.setState({ messages });
 	}
 	
 	onPvtMessageReceived(payload) {
@@ -66,7 +74,7 @@ class ChatFull extends React.Component {
 		alert("PRIVATE MESSAGE >>> From: " + mss.sender + ": " + mss.content);
 	}
 	
-	sendMessage(message) {
+	sendMessage(message, channel) {
 		console.log('send message >>> ' + message);
 		if (this.props.client && message != '') {
 			let chatMessage = {
@@ -77,30 +85,43 @@ class ChatFull extends React.Component {
 				date: ''
 			};
 
-			this.props.client.send("/app/chat", {}, JSON.stringify(chatMessage));
+			this.props.client.send(channel, {}, JSON.stringify(chatMessage));
 		}
 	}
 	
-	loadOldMsg(){
-		this.ajaxLoad = this.ajaxLoad.bind(this);
+	ajaxLoad(url, callback){
 		$.ajax({
 			async : false,
 			type : "GET",
-			url : '/oldMsg',
+			url : url,
 			contentType : 'application/json',
 			statusCode : {
-				200 : this.ajaxLoad
+				200 : callback
 			}
 		});
 	}
 	
-	ajaxLoad(res){
+	loadOnlineUsers(mss) {
+		const users = [];
+		console.log('online n. >>> ' + mss.length);
+		for (i=0; i<mss.length; ++i){
+			var img = (mss[i].imgUrl == '') ? '/img/noimguser.png' : mss[i].imgUrl;
+			users.push({
+				username: mss[i].username,
+				display: mss[i].displayName,
+				img: img
+			});
+		}
+		this.setState({ users });
+	}
+	
+	loadOldMsg(res){
 		let mexs = JSON.parse(res);
 		const messages = this.state.messages;
 		for (i=0; i<mexs.length; ++i)
 			messages.push({
 				display: mexs[i].displayName,
-				content: (mexs[i].typeMessage == 'CHAT') ? mexs[i].content : '',
+				content: mexs[i].content,
 				date: mexs[i].date,
 				isMy: (this.props.username == mexs[i].sender) ? 'sended' : 'received'
 			})
@@ -110,6 +131,7 @@ class ChatFull extends React.Component {
 	render() {
 		return (
 				<div className="chat">
+				<UsersDisplay users={this.state.users} send={this.sendMessage} />
 				<ChatDisplay messages={this.state.messages} />
 				<ChatConsole send={this.sendMessage} />
 				</div>

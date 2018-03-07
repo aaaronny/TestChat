@@ -6,7 +6,7 @@ class ChatConsole extends React.Component {
 		}
 		
 		send(event) {
-	        this.props.send(this.message.value);
+	        this.props.send(this.message.value, "/app/chat");
 	        this.message.value = '';
 	        event.preventDefault();
 	    }
