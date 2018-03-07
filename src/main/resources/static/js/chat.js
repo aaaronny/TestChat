@@ -28,10 +28,10 @@ function setOnChatDiv(){
 	$('#loginBox').css("display", "none");
 	$('#chatBox').css("display", "inline-block");
 
-	$(document).keypress(function(e) {
-		if (e.which == 13)
-			sendMessage();
-	});
+//	$(document).keypress(function(e) {
+//		if (e.which == 13)
+//			sendMessage();
+//	});
 }
 
 function connect() {

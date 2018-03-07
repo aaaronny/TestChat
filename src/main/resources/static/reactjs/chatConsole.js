@@ -2,20 +2,22 @@ class ChatConsole extends React.Component {
 			
 		constructor(props) {
 			super(props);
-			this.state = { value: 'cock'};
+		    this.send = this.send.bind(this);
 		}
 		
-		send= () => {
-	        this.props.send(this.state.value);
+		send(event) {
+	        this.props.send(this.message.value);
+	        event.preventDefault();
 	    }
 
 		render() {
 			return (
 					<div className="console">
+					<form onSubmit={this.send}>
 						<div>
-							<input type="text" value={this.state.value}  onChange={null}/>
-							<button onClick={this.send}>SEND</button>
+							<input defaultValue="Scrivi..." type="text" ref={(input) => this.message = input} />
 						</div>
+					</form>
 					</div>
 			);
 		}
