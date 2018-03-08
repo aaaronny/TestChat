@@ -13,14 +13,13 @@ public class AccountKitController {
 	private static final Logger logger = Logger.getLogger(AccountKitController.class);
 
     @RequestMapping("/requestToken")
-    public String requestToken(@RequestParam("code") String code, ModelMap model) {
+    public String requestToken(@RequestParam("code") String code) {
     	String url = "https://graph.accountkit.com/v1.3/access_token?grant_type=authorization_code&code=";
-    	url += code + "&access_token=AA|1022508357842402|fe80861d44e55b2054546bcaf64deb4c";
-		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> start method");
-		RestTemplate restTemplate = new RestTemplate();
-		String res = restTemplate.getForObject(url, String.class);
-		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + res);
-		model.addAttribute("akResponse", res);
+    	url += code + "&access_token=AA|1022508357842402|a9ad38d68d09a9f2e0e3eb8b3bf9cffb";
+		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + url);
+		//RestTemplate restTemplate = new RestTemplate();
+		//String res = restTemplate.getForObject(url, String.class);
+		//logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + res);
         return "testpage";
     }
     
