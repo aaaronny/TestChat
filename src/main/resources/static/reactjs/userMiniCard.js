@@ -6,7 +6,9 @@ class UserMiniCard extends React.Component {
 	}
 	
 	send(event) {
-        this.props.send(prompt('Cosa vuoi dire in privato a ' + this.props.display + '?', '...'), "/app/chat/" + this.props.username);
+		var text = prompt('Cosa vuoi dire in privato a ' + this.props.display + '?', '...');
+		if (text != null && text != '')
+			this.props.send(text, "/app/chat/" + this.props.username);
         event.preventDefault();
     }
 

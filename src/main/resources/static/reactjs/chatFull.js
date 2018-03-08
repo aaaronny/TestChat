@@ -104,7 +104,7 @@ class ChatFull extends React.Component {
 	loadOnlineUsers(mss) {
 		const users = [];
 		console.log('online n. >>> ' + mss.length);
-		for (i=0; i<mss.length; ++i){
+		for (var i=0; i<mss.length; ++i){
 			var img = (mss[i].imgUrl == '') ? '/img/noimguser.png' : mss[i].imgUrl;
 			users.push({
 				username: mss[i].username,
@@ -118,7 +118,7 @@ class ChatFull extends React.Component {
 	loadOldMsg(res){
 		let mexs = JSON.parse(res);
 		const messages = this.state.messages;
-		for (i=0; i<mexs.length; ++i)
+		for (var i=0; i<mexs.length; ++i)
 			messages.push({
 				display: mexs[i].displayName,
 				content: mexs[i].content,

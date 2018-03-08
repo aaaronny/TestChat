@@ -1,3 +1,8 @@
+var client = null;
+var username = null;
+var displayName = null;
+var profileImg = '';
+
 //	LOGIN WITH GOOGLE
 function onSignInGoogle(googleUser) {
 	  var profile = googleUser.getBasicProfile();
@@ -7,6 +12,8 @@ function onSignInGoogle(googleUser) {
 	  preLoad();
 }
 
+
+//	LOGIN WIDTH SYSTEM ACCOUNT
 function login() {
 	
 	var utente = { username: $('#user').val(), password: $('#pass').val() };
@@ -27,9 +34,10 @@ function login() {
 
 }
 
+//	PRELOAD INIT
 function preLoad(){
 	$('#loginBox').css("display", "none");
 	$('#chatBox').css("display", "inline-block");
 	client = Stomp.over(new SockJS('/tsch'));
-	ReactDOM.render(<ChatFull client={client} username={username} display={displayName} />, document.getElementById('react'));
+	ReactDOM.render(<ChatFull client={client} username={username} display={displayName} />, document.getElementById('chatBox'));
 }
