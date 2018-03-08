@@ -13,7 +13,7 @@ function onSignInGoogle(googleUser) {
 }
 
 
-//	LOGIN WIDTH SYSTEM ACCOUNT
+//	LOGIN WITH SYSTEM ACCOUNT
 function login() {
 	
 	var utente = { username: $('#user').val(), password: $('#pass').val() };
@@ -28,6 +28,10 @@ function login() {
 			200 : function(res) {
 				username = $('#user').val();				
 				preLoad();
+			},
+	
+			404 : function() {
+				alert('CREDENZIALI NON CORRETTE!');
 			}
 		}
 	});

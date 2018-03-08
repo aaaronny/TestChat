@@ -1,4 +1,4 @@
-class ChatDisplay extends React.Component {
+class PvtChatDisplay extends React.Component {
 	
 	constructor(props) {
 		super(props);
@@ -18,7 +18,7 @@ class ChatDisplay extends React.Component {
 					{ this.props.messages.map(mex =>
 						(
 								<ChatMessage
-								display={mex.display}
+								display=""
 								content={mex.content}
 								date={mex.date}
 								isMy={mex.isMy} 

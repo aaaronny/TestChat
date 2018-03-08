@@ -99,10 +99,19 @@ div.g-signin2 > div{
 	width: 100% !important;
 }
 
+div.googleLogin{
+	margin-top:10px;
+}
+
 div.chat p.userCard{
 	cursor: pointer;
 	color: green;
 	margin: 4px;
+}
+
+div.chat p.userCard:hover{
+	background-color: greenyellow;
+	color: white;
 }
 
 div.chat p.userCard img{

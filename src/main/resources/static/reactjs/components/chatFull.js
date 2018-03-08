@@ -11,10 +11,11 @@ class ChatFull extends React.Component {
 		this.onMessageReceived = this.onMessageReceived.bind(this);
 		this.loadOldMsg = this.loadOldMsg.bind(this);
 		this.loadOnlineUsers = this.loadOnlineUsers.bind(this);
+		this.changeRoom = this.changeRoom.bind(this);
 		
 		console.log('logged user >>> ' + this.props.username);
 		console.log('display name >>> ' + this.props.display);
-		this.state = { messages: [] , users: [], noFirstAccess: true};
+		this.state = { messages: [] , users: [], noFirstAccess: true, room: ''};
 		this.connect();
 	}
 	
@@ -127,13 +128,17 @@ class ChatFull extends React.Component {
 			})
 		this.setState({ messages });
 	}
+	
+	changeRoom(room){
+		
+	}
 
 	render() {
 		return (
 				<div className="chat">
-				<UsersDisplay users={this.state.users} send={this.sendMessage} />
-				<ChatDisplay messages={this.state.messages} />
-				<ChatConsole send={this.sendMessage} />
+				<UsersDisplay users={this.state.users} send={this.changeRoom} />
+				<ChatDisplay messages={this.state.messages} room={this.state.room}/>
+				<ChatConsole send={this.sendMessage} channel="/app/chat" />
 				</div>
 				);
 	}
