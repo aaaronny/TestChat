@@ -21,7 +21,7 @@ public class AccountKitController {
 		String res = restTemplate.getForObject(url, String.class);
 		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + res);
 		model.addAttribute("akResponse", res);
-        return "testToken";
+        return "testpage";
     }
     
     @RequestMapping("/falder")
