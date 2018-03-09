@@ -15,7 +15,7 @@ public class AccountKitController {
     @RequestMapping("/requestToken")
     public String requestToken(@RequestParam("code") String code) {
     	String url = "https://graph.accountkit.com/v1.1/access_token?grant_type=authorization_code&code=";
-    	url += code + "&access_token=AA|1022508357842402|a9ad38d68d09a9f2e0e3eb8b3bf9cffb";
+    	url += code + "&access_token=AA|1022508357842402|91f463eee4e0c53a95bbca05f876374b";
 		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + url);
 		RestTemplate restTemplate = new RestTemplate();
 		String res = restTemplate.getForObject(url, String.class);
