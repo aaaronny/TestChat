@@ -20,59 +20,21 @@
 <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
 <!-- 	REACT COMPONENTS 	-->
-<script type="text/babel" src="reactjs/userMiniCard.js"></script>
-<script type="text/babel" src="reactjs/usersDisplay.js"></script>
-<script type="text/babel" src="reactjs/chatMessage.js"></script>
-<script type="text/babel" src="reactjs/chatDisplay.js"></script>
-<script type="text/babel" src="reactjs/chatConsole.js"></script>
-<script type="text/babel" src="reactjs/chatFull.js"></script>
+<script type="text/babel" src="reactjs/components/accountKit.js"></script>
+<script type="text/babel" src="reactjs/components/loginPage.js"></script>
+<script type="text/babel" src="reactjs/components/userMiniCard.js"></script>
+<script type="text/babel" src="reactjs/components/usersDisplay.js"></script>
+<script type="text/babel" src="reactjs/components/chatMessage.js"></script>
+<script type="text/babel" src="reactjs/components/chatDisplay.js"></script>
+<script type="text/babel" src="reactjs/components/chatConsole.js"></script>
+<script type="text/babel" src="reactjs/components/chatFull.js"></script>
 <script type="text/babel" src="reactjs/reactEngine.js"></script>
 
 </head>
 <body>
-
-	<div id="loginBox" class="container col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h1>Login Chat</h1>
-			</div>
-			<div class="panel-body">
-				<div class="form-group">
-					<div class="input-group">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user" style="width: auto"></i>
-						</span> <input id="user" type="text" class="form-control"
-							placeholder="Username" required="" />
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="input-group">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-lock" style="width: auto"></i>
-						</span> <input id="pass" type="password" class="form-control"
-							placeholder="Password" required="" />
-					</div>
-				</div>
-				<button onclick="login()" id="btnLogin" class="btn btn-default"
-					style="width: 100%">
-					LOGIN<i class="glyphicon glyphicon-log-in"></i>
-				</button>
-
-				<div class="g-signin2" data-onsuccess="onSignInGoogle" style="margin-top:10px;"></div>
-
-<!-- 				<form method="get" action="https://www.accountkit.com/v1.0/basic/dialog/sms_login/"> -->
-<!-- 					<input type="hidden" name="app_id" value="1022508357842402"> <input -->
-<!-- 						type="hidden" name="redirect" value="https://aaar-testchat.herokuapp.com/requestToken"> <input -->
-<!-- 						type="hidden" name="state" value="91f463eee4e0c53a95bbca05f876374b"> <input -->
-<!-- 						type="hidden" name="fbAppEventsEnabled" value=true> -->
-<!-- 					<button type="submit" class="btn btn-success" style="width: 100% !important;">Login with Mobile</button> -->
-<!-- 				</form> -->
-
-			</div>
-		</div>
-	</div>
 	
 	<div id="chatBox"></div>
+	<div id="loginGoogleBox" class="g-signin2" data-onsuccess="onSignInGoogle" style="margin-top:10px;"></div>
 
 </body>
 </html>

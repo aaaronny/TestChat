@@ -1,5 +1,0 @@
-<body>
-    
-response: ${akResponse}    
-
-</body>

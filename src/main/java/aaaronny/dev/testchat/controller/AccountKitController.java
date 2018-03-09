@@ -24,6 +24,12 @@ public class AccountKitController {
     }
     
     @RequestMapping("/falder")
+    public String testpage(ModelMap model) {
+    	model.addAttribute("ciucci", "Hi my name is Ciucci!");
+        return "testtoken";
+    }
+    
+    @RequestMapping("/jolter")
     public String testpage() {
         return "testpage";
     }

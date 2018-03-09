@@ -90,6 +90,7 @@ class ChatFull extends React.Component {
 	}
 	
 	ajaxLoad(url, callback){
+		console.log('REST CALL TO >>> ' + url);
 		$.ajax({
 			async : false,
 			type : "GET",

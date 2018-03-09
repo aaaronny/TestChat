@@ -14,9 +14,11 @@ function onSignInGoogle(googleUser) {
 
 
 //	LOGIN WIDTH SYSTEM ACCOUNT
-function login() {
+var loginFunc = function login(user, pass) {
 	
-	var utente = { username: $('#user').val(), password: $('#pass').val() };
+	alert('Ti stai loggando con il sistema interno...');
+	
+	var utente = { username: user, password: pass };
 
 	$.ajax({
 		type : "POST",
@@ -26,7 +28,8 @@ function login() {
 		data : JSON.stringify(utente),
 		statusCode : {
 			200 : function(res) {
-				username = $('#user').val();				
+				username = user;
+				displayName = user;				
 				preLoad();
 			}
 		}
@@ -36,8 +39,8 @@ function login() {
 
 //	PRELOAD INIT
 function preLoad(){
-	$('#loginBox').css("display", "none");
-	$('#chatBox').css("display", "inline-block");
+	$('#loginGoogleBox').css("display", "none");
+	//$('#chatBox').css("display", "inline-block");
 	client = Stomp.over(new SockJS('/tsch'));
 	ReactDOM.render(<ChatFull client={client} username={username} display={displayName} />, document.getElementById('chatBox'));
 }
@@ -59,4 +62,7 @@ window.fbAsyncInit = function() {
    js.src = "https://connect.facebook.net/en_US/sdk.js";
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
+
+
+ReactDOM.render(<div><LoginPage login={loginFunc} /><AccountKit /></div>, document.getElementById('chatBox'));
 

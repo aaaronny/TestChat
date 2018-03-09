@@ -107,7 +107,8 @@ div.chat div.loginMessage{
 }
 
 div.g-signin2 > div{
-	width: 100% !important;
+	display: inline-block;
+	width: 150px !important;
 }
 
 div.chat p.userCard{
@@ -126,4 +127,9 @@ div.chat p.userCard img{
 div.chat div.console div{
 	border: solid 1px;
 	display: inline-block;
+}
+
+.btnLogin {
+	width: 150px !important;
+	margin: 5px;
 }
