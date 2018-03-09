@@ -13,7 +13,7 @@ public class AccountKitController {
 	private static final Logger logger = Logger.getLogger(AccountKitController.class);
 
     @RequestMapping("/requestToken")
-    public String requestToken(@RequestParam("code") String code) {
+    public String requestToken(@RequestParam("code") String code, ModelMap model) {
     	String url = "https://graph.accountkit.com/v1.1/access_token?grant_type=authorization_code&code=";
     	url += code + "&access_token=AA|1022508357842402|a9ad38d68d09a9f2e0e3eb8b3bf9cffb";
 		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + url);
@@ -24,9 +24,9 @@ public class AccountKitController {
         return "testtoken";
     }
     
-//    @RequestMapping("/falder")
-//    public String testpage(ModelMap model) {
-//    	model.addAttribute("akResponse", "FALDER JOLTER JOYASS JORAIS FORAIS BLACKBOARD OSSIGENO");
-//        return "testtoken";
-//    }
+    @RequestMapping("/falder")
+    public String testpage(ModelMap model) {
+    	model.addAttribute("akResponse", "FALDER JOLTER JOYASS JORAIS FORAIS BLACKBOARD OSSIGENO");
+        return "testtoken";
+    }
 }
