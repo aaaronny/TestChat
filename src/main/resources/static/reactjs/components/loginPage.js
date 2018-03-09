@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
 		    						</span> <input ref={(input) => this.pass = input} type="password" className="form-control" placeholder="Password" required="" />
 		    					</div>
 		    				</div>
-		    				<button onClick={this.send} id="btnLoginr" className="btn btn-default btnLogin"> LOGIN<i className="glyphicon glyphicon-log-in"></i>
+		    				<button onClick={this.send} id="btnLoginr" className="btn btn-primary btnLogin"> LOGIN<i className="glyphicon glyphicon-log-in"></i>
 		    				</button>
 		    				</div>
 		    				</div>
