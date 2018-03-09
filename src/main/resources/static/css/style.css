@@ -44,14 +44,24 @@ div.chat input{
 div.chat p.sender{
     font-size: 0.8em;
     font-weight: bold;
-    margin: 0px 0px 5px 0px;
+    margin: 0px 5px 5px 5px;
+    
 }
 
-div.chat p.time{
+div.chat div.sended p.time{
     font-size: 0.5em;
     color: blue;
     font-weight: bold;
-    margin: 0px 0px 5px 0px;
+    margin: 0px 0px 0px 5px;
+    text-align: left !important;
+}
+
+div.chat div.received p.time{
+    font-size: 0.5em;
+    color: blue;
+    font-weight: bold;
+    margin: 0px 5px 0px 0px;
+    text-align: right !important;
 }
 
 div.chat p.textBody{
@@ -73,6 +83,7 @@ div.chat div.message{
 
 div.chat div.sended{
     text-align: right;
+    padding: 0px;
 }
 
 div.chat div.sended > div{

@@ -1,0 +1,49 @@
+div.chat .speech-bubble {
+	position: relative;
+	display: inline-block;
+	border-radius: .4em;
+	width: 35%;
+	margin: 5px;
+	padding: 5px;
+}
+
+div.chat .bubble-sended{
+	right: 10px;
+	background: greenyellow;
+}
+
+div.chat .bubble-received{
+	left: 10px;
+	background: aliceblue;
+}
+
+div.chat .bubble-sended:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.625em solid transparent;
+	border-left-color: greenyellow;
+	border-right: 0;
+	border-top: 0;
+	margin-top: -0.312em;
+	margin-right: -0.625em;
+}
+
+
+div.chat .bubble-received:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 0.625em solid transparent;
+	border-right-color: aliceblue;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -0.312em;
+	margin-left: -0.625em;
+}
