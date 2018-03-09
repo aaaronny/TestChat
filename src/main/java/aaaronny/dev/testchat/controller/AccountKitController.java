@@ -20,7 +20,7 @@ public class AccountKitController {
 		RestTemplate restTemplate = new RestTemplate();
 		String res = restTemplate.getForObject(url, String.class);
 		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + res);
-    	//model.addAttribute("akResponse", res);
+    	model.addAttribute("akResponse", res);
         return "testtoken";
     }
     
