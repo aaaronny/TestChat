@@ -14,7 +14,7 @@ div.chat .bubble-sended{
 
 div.chat .bubble-received{
 	left: 10px;
-	background: aliceblue;
+	background: #9b9bff;
 }
 
 div.chat .bubble-sended:after {
@@ -41,7 +41,7 @@ div.chat .bubble-received:after {
 	width: 0;
 	height: 0;
 	border: 0.625em solid transparent;
-	border-right-color: aliceblue;
+	border-right-color: #9b9bff;
 	border-left: 0;
 	border-top: 0;
 	margin-top: -0.312em;

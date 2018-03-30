@@ -13,12 +13,14 @@ class ChatConsole extends React.Component {
 
 		render() {
 			return (
-					<div className="console">
+					<div className="console row bg-dark">
+					<div className="col-12">
 					<form onSubmit={this.send}>
 						<div>
 							<input type="text" ref={(input) => this.message = input} />
 						</div>
 					</form>
+					</div>
 					</div>
 			);
 		}

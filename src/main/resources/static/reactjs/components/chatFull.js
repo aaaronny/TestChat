@@ -131,10 +131,25 @@ class ChatFull extends React.Component {
 
 	render() {
 		return (
-				<div className="chat">
+				<div className="chat container-fluid">
+				<div className="row no-gutters">
+				
 				<UsersDisplay users={this.state.users} send={this.sendMessage} />
+			    
+			    <div className="col-md-10 col-12">    
+			    <div className="container-fluid">
+			    
+				<div className="row bg-dark roomBar">
+	            	<div className="col-12 ">MY USER</div>
+	            </div>
+				
 				<ChatDisplay messages={this.state.messages} />
 				<ChatConsole send={this.sendMessage} />
+				
+				</div>
+				</div>
+				
+				</div>
 				</div>
 				);
 	}

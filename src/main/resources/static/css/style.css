@@ -4,40 +4,32 @@ body {
     margin: 10px;
 }
 
-div.chat{
-    display: inline-block;
-    margin: 10px;
+div.chat div.messageContainer{
+	overflow-y: auto;
+	height: calc(100vh - 150px);
 }
 
-div.chat div.display{
-	display: inline-block;
-	height: 30em;
+div.chat div.topBarDisplay{
+	height: 2em;
 	width: 44.5em;
 	border: solid 1px;
     margin: 0px 0px 10px 0px;
-    overflow-y: auto;
     text-align: left;
     padding: 5px;
+    background-color: greenyellow;
 }
 
 div.chat div.usersDisplay{
-	display: inline-block;
-	height: 30em;
-	width: 15em;
-	border: solid 1px;
-    margin: 0px 10px 10px 0px;
     overflow-y: auto;
-    text-align: left;
-    padding: 5px;
+    height: 100%;
 }
 
 div.chat input{
-    font-size: 1em;
-    width: 60em;
-    height: 22px;
-    padding-right: 1em;
-    padding-left: 5px;
-    margin-right: 0px;
+	margin: 5px;
+    font-size: 2em;
+    width: 100%;
+    color: white;
+    background-color: RGBA(255,255,255,0.0);
     border: none;
 }
 
@@ -86,16 +78,8 @@ div.chat div.sended{
     padding: 0px;
 }
 
-div.chat div.sended > div{
-    background-color: greenyellow;
-}
-
 div.chat div.received{
     text-align: left;
-}
-
-div.chat div.received > div{
-    background-color: aliceblue;
 }
 
 div.chat div.loginMessage{
@@ -113,7 +97,7 @@ div.g-signin2 > div{
 
 div.chat p.userCard{
 	cursor: pointer;
-	color: green;
+	color: white;
 	margin: 4px;
 }
 
@@ -124,9 +108,13 @@ div.chat p.userCard img{
 	border-radius: 16px;
 }
 
-div.chat div.console div{
-	border: solid 1px;
-	display: inline-block;
+div.chat div.console {
+	height: 60px;
+}
+
+div.chat div.roomBar {
+	height: 60px;
+	color: white;
 }
 
 .btnLogin {

@@ -14,7 +14,8 @@ class ChatDisplay extends React.Component {
 
 	render() {
 		return (
-				<div className="display" ref="display">
+				<div className="display row bg-light">
+				<div className="col-12 messageContainer" ref="display">
 					{ this.props.messages.map(mex =>
 						(
 								<ChatMessage
@@ -25,6 +26,7 @@ class ChatDisplay extends React.Component {
 								key={mex.date + Math.random()} />
 						)
 					) }
+				</div>
 				</div>
 		);
 	}
