@@ -6,12 +6,9 @@ class UsersDisplay extends React.Component {
 
 	render() {
 		return (
-				<div className="col-md-2 d-md-block d-none">
+				<div className="row">
 				
-				<div className="usersDisplay container bg-success">
-				<div className="row no-gutters">
-				
-				<div className="col-12 no-gutters">
+				<div className="col-12 no-gutters usersDisplay ">
 				 { this.props.users.map(mex => (
 						 <UserMiniCard
 						 send={this.props.send} 
@@ -21,9 +18,6 @@ class UsersDisplay extends React.Component {
 						 key={mex.username} />
 				 		)
 				 ) }
-				</div>
-				
-				</div>
 				</div>
 				
 				</div>

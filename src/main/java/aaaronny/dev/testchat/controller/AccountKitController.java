@@ -1,6 +1,7 @@
 package aaaronny.dev.testchat.controller;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,11 @@ public class AccountKitController {
 		RestTemplate restTemplate = new RestTemplate();
 		String res = restTemplate.getForObject(url, String.class);
 		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + res);
-    	model.addAttribute("akResponse", res);
+		JSONObject jsonObj = new JSONObject(res);
+		String verifyUrl = "https://graph.accountkit.com/v1.3/me/?access_token=" + jsonObj.getString("access_token");
+		String verify = restTemplate.getForObject(verifyUrl, String.class);
+		logger.info("ACCOUNT KIT ACCESS >>> " + verify);
+    	model.addAttribute("akResponse", verify);
         return "testtoken";
     }
     

@@ -9,19 +9,10 @@ div.chat div.messageContainer{
 	height: calc(100vh - 150px);
 }
 
-div.chat div.topBarDisplay{
-	height: 2em;
-	width: 44.5em;
-	border: solid 1px;
-    margin: 0px 0px 10px 0px;
-    text-align: left;
-    padding: 5px;
-    background-color: greenyellow;
-}
-
 div.chat div.usersDisplay{
     overflow-y: auto;
     height: 100%;
+    text-align: left;
 }
 
 div.chat input{
@@ -112,7 +103,7 @@ div.chat div.console {
 	height: 60px;
 }
 
-div.chat div.roomBar {
+div.chat div.topbar {
 	height: 60px;
 	color: white;
 }

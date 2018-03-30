@@ -132,24 +132,34 @@ class ChatFull extends React.Component {
 	render() {
 		return (
 				<div className="chat container-fluid">
-				<div className="row no-gutters">
+					<div className="row no-gutters">
 				
-				<UsersDisplay users={this.state.users} send={this.sendMessage} />
+						<div className="col-md-3 d-md-block d-none bg-success">
+							<div className="container-fluid">
 			    
-			    <div className="col-md-10 col-12">    
-			    <div className="container-fluid">
+								<div className="row bg-dark topbar">
+									<div className="col-12 ">MY USER</div>
+								</div>
+	            
+								<UsersDisplay users={this.state.users} send={this.sendMessage} />
 			    
-				<div className="row bg-dark roomBar">
-	            	<div className="col-12 ">MY USER</div>
-	            </div>
+							</div>
+						</div>
 				
-				<ChatDisplay messages={this.state.messages} />
-				<ChatConsole send={this.sendMessage} />
+						<div className="col-md-9 col-12">    
+							<div className="container-fluid">
+			    
+								<div className="row bg-dark topbar">
+									<div className="col-12 ">MY ROOM</div>
+								</div>
+								
+								<ChatDisplay messages={this.state.messages} />
+								<ChatConsole send={this.sendMessage} />
 				
-				</div>
-				</div>
+							</div>
+						</div>
 				
-				</div>
+					</div>
 				</div>
 				);
 	}

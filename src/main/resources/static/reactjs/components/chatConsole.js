@@ -17,7 +17,7 @@ class ChatConsole extends React.Component {
 					<div className="col-12">
 					<form onSubmit={this.send}>
 						<div>
-							<input type="text" ref={(input) => this.message = input} />
+							<input placeholder="Cosa vuoi scrivere?" type="text" ref={(input) => this.message = input} />
 						</div>
 					</form>
 					</div>
