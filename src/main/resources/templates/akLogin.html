@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="js/jquery-latest.js"></script>
+</head>
+<body>
+<h2>TEST CHAT --> Account Kit response redirect...</h2>
+<div style="display: none" id="jsonResult" th:text="${akResponse}"></div>
+
+<script type="text/javascript">
+
+$.cookie("test-chat-access-json", $('#jsonResult').html());
+window.location = 'index.html';
+
+</script>
+
+</body>
+</html>

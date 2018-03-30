@@ -1,5 +1,7 @@
 package aaaronny.dev.testchat.controller;
 
+import java.util.Random;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -21,12 +23,20 @@ public class AccountKitController {
 		RestTemplate restTemplate = new RestTemplate();
 		String res = restTemplate.getForObject(url, String.class);
 		logger.info("ACCOUNT KIT JSON RESULT TOKEN >>> " + res);
+		
 		JSONObject jsonObj = new JSONObject(res);
 		String verifyUrl = "https://graph.accountkit.com/v1.3/me/?access_token=" + jsonObj.getString("access_token");
 		String verify = restTemplate.getForObject(verifyUrl, String.class);
 		logger.info("ACCOUNT KIT ACCESS >>> " + verify);
+		
+		JSONObject jsonFinal = new JSONObject(verify);
+		String uName = jsonFinal.getJSONObject("phone").getString("number");
+		String uPass = getRandomPass();
+		String checkUrl = "http://aaaronny.altervista.org/testchat_api/accountkit_controller.php?username=" + uName + "&password=" + uPass;
+		String last = restTemplate.getForObject(checkUrl, String.class);
+		logger.info("JSON USER ACCESS >>> " + last);
     	model.addAttribute("akResponse", verify);
-        return "testtoken";
+        return "akLogin";
     }
     
     @RequestMapping("/falder")
@@ -34,4 +44,18 @@ public class AccountKitController {
     	model.addAttribute("akResponse", "FALDER JOLTER JOYASS JORAIS FORAIS BLACKBOARD OSSIGENO");
         return "testtoken";
     }
+    
+    public String getRandomPass() {
+        String SALTCHARS = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 30) { 
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
+    
 }

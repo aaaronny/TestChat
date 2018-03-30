@@ -3,13 +3,23 @@ var username = null;
 var displayName = null;
 var profileImg = '';
 
-//	LOGIN WITH GOOGLE
+//CHECK COOKIE
+function checkCookieAccess() {
+	if (!typeof $.cookie('test-chat-access-json') === 'undefined'){
+		var json = JSON.stringify($.cookie('test-chat-access-json'));
+		username = json.username;
+		displayName = json.password;
+		preLoad();
+	}
+}
+
+//LOGIN WITH GOOGLE
 function onSignInGoogle(googleUser) {
-	  var profile = googleUser.getBasicProfile();
-	  username = profile.getEmail();
-	  displayName = profile.getName();
-	  profileImg = profile.getImageUrl();
-	  preLoad();
+  var profile = googleUser.getBasicProfile();
+  username = profile.getEmail();
+  displayName = profile.getName();
+  profileImg = profile.getImageUrl();
+  preLoad();
 }
 
 
@@ -63,6 +73,7 @@ window.fbAsyncInit = function() {
    fjs.parentNode.insertBefore(js, fjs);
  }(document, 'script', 'facebook-jssdk'));
 
+checkCookieAccess();
 
 ReactDOM.render(<div><LoginPage login={loginFunc} /><AccountKit /></div>, document.getElementById('chatBox'));
 
