@@ -10,7 +10,7 @@ function checkCookieAccess() {
 	if (ck != null && ck .length>0){
 		var ckval = ck.substring(5);
 		var json = JSON.parse(ckval);
-		alert(json);
+		alert(ckval);
 		username = json.username;
 		displayName = json.username;
 		preLoad();
