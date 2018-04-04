@@ -9,9 +9,9 @@ function checkCookieAccess() {
 	if (ck != null && ck .length>0){
 		var ckval = ck.substring(5);
 		var json = JSON.parse(ckval);
-		username = json.phone.number;
-		displayName = json.phone.number;
-		preLoad();
+		username = json.username;
+		displayName = json.username;
+		login(username, json.password)
 	} else {
 		ReactDOM.render(<div><LoginPage login={loginFunc} /><AccountKit /></div>, document.getElementById('chatBox'));
 	}

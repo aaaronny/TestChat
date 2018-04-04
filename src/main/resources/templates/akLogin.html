@@ -6,10 +6,13 @@
 <body>
 <h2>TEST CHAT --> Account Kit response redirect...</h2>
 <div style="display: none" id="jsonResult" th:text="${akResponse}"></div>
+<div style="display: none" id="jsonResultPass" th:text="${akResponsePass}"></div>
 
 <script type="text/javascript">
 
-document.cookie = "json=" + $('#jsonResult').html();
+var data = '{username: ' + $('#jsonResult').html() + ', password: ' + $('#jsonResultPass').html() + '}';
+
+document.cookie = "data=" + data + "; expires=Thu, 18 Dec 2099 12:00:00 UTC";
 window.location = 'index.html';
 
 </script>

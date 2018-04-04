@@ -35,7 +35,8 @@ public class AccountKitController {
 		String checkUrl = "http://aaaronny.altervista.org/testchat_api/accountkit_controller.php?username=" + uName + "&password=" + uPass;
 		String last = restTemplate.getForObject(checkUrl, String.class);
 		logger.info("JSON USER ACCESS >>> " + last);
-    	model.addAttribute("akResponse", verify);
+    	model.addAttribute("akResponse", uName);
+    	model.addAttribute("akResponsePass", uPass);
         return "akLogin";
     }
     
