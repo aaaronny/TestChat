@@ -7,11 +7,12 @@ var profileImg = '';
 function checkCookieAccess() {
 	var ck = document.cookie;
 	alert(ck);
-	if (!typeof ck === 'undefined'){
+	if (ck != null && ck .length>0){
 		var ckval = ck.substring(5);
 		var json = JSON.parse(ckval);
+		alert(json);
 		username = json.username;
-		displayName = json.password;
+		displayName = json.username;
 		preLoad();
 	}
 }
