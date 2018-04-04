@@ -5,8 +5,10 @@ var profileImg = '';
 
 //CHECK COOKIE
 function checkCookieAccess() {
-	if (!typeof $.cookie('test-chat-access-json') === 'undefined'){
-		var json = JSON.stringify($.cookie('test-chat-access-json'));
+	var ck = document.cookie;
+	if (!typeof ck === 'undefined'){
+		var ckval = ck.substring(5);
+		var json = JSON.parse(ckval);
 		username = json.username;
 		displayName = json.password;
 		preLoad();
