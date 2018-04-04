@@ -6,14 +6,14 @@ var profileImg = '';
 //CHECK COOKIE
 function checkCookieAccess() {
 	var ck = document.cookie;
-	alert(ck);
 	if (ck != null && ck .length>0){
 		var ckval = ck.substring(5);
 		var json = JSON.parse(ckval);
-		alert(ckval);
 		username = json.phone.number;
 		displayName = json.phone.number;
 		preLoad();
+	} else {
+		ReactDOM.render(<div><LoginPage login={loginFunc} /><AccountKit /></div>, document.getElementById('chatBox'));
 	}
 }
 
@@ -78,6 +78,4 @@ window.fbAsyncInit = function() {
  }(document, 'script', 'facebook-jssdk'));
 
 checkCookieAccess();
-
-ReactDOM.render(<div><LoginPage login={loginFunc} /><AccountKit /></div>, document.getElementById('chatBox'));
 
