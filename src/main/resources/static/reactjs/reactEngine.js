@@ -6,6 +6,7 @@ var profileImg = '';
 //CHECK COOKIE
 function checkCookieAccess() {
 	var ck = document.cookie;
+	alert(ck);
 	if (!typeof ck === 'undefined'){
 		var ckval = ck.substring(5);
 		var json = JSON.parse(ckval);
