@@ -11,8 +11,8 @@ function checkCookieAccess() {
 		var ckval = ck.substring(5);
 		var json = JSON.parse(ckval);
 		alert(ckval);
-		username = json.username;
-		displayName = json.username;
+		username = json.phone.number;
+		displayName = json.phone.number;
 		preLoad();
 	}
 }
