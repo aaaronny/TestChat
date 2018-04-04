@@ -11,7 +11,7 @@ function checkCookieAccess() {
 		var json = JSON.parse(ckval);
 		username = json.username;
 		displayName = json.username;
-		login(username, json.password)
+		loginFunc(username, json.password)
 	} else {
 		ReactDOM.render(<div><LoginPage login={loginFunc} /><AccountKit /></div>, document.getElementById('chatBox'));
 	}
